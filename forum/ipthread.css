@@ -1,0 +1,24 @@
+html,body { 
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: #F6F6EF;
+}
+
+.top-bar { 
+    background-color: #F4DB7D;
+    padding: 0 40px;
+}
+
+#title { 
+    width: 50%;
+    height: 100%;
+    font-size: 25px;
+}
+.content { 
+    height: 50%;
+    width: 100%;
+    font-size: 20px;
+}

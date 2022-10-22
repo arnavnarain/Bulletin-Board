@@ -1,4 +1,4 @@
-<?php include_once("../../index.html"); ?>
+<?php include_once("index.html"); ?>
 
 <?php
 session_start();
@@ -32,7 +32,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user"] !== true)
 	  </div>
         <div class="main">
             <ol>
-            <button onClick="window.location.href='ipthread.php';">Create thread</button>
+            <button onClick="window.location.href='resources/php/ipthread.php';">Create thread</button>
             </ol>
         </div>
         <script>

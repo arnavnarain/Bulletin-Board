@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <Title>Thread</Title>
+  <link rel="stylesheet" href="../css/thread.css">
+</head>
+
+<body>
+  <div class="top-bar">
+    <h1>Bulletin Board</h1>
+  </div>
+  <div class="main">
+    <div class="header">
+    </div>
+    <div class="content" id="content">
+    </div>
+    <h4>
+        Leave a comment
+    </h4>
+    <textarea></textarea>
+    <br>
+    <div id="createthread">
+        <button class="button" style="vertical-align:middle"><span>add comment</span></button>
+    </div>
+    <div id="root">
+
+    </div>
+    <div class="comments">
+    </div>
+    <div id = "haha">
+
+    </div>
+  </div>
+  <script src="../javascript/data.js"></script>
+  <script>
+  var id = window.location.search.slice(1);
+            var foo = JSON.parse(sessionStorage.getItem("newThreads"));
+            var thread = foo.find(t => t.id == id);
+            var header = document.querySelector('.header');
+            let elements = document.getElementById('content');
+            var a = `
+            <p class="content" id="content">
+            <wbr>
+                    ${thread.content}
+                </wbr>
+             </p>
+                `
+                content.insertAdjacentHTML('beforeend', a)
+            
+            var headerHtml = `
+                <h4 class="title">
+                    ${thread.title}
+                </h4>
+                <div class="bottom">
+                    <p class="timestamp">
+                        ${new Date(thread.date).toLocaleString()}
+                    </p>               
+                    <p class="comment-count">
+                        ${thread.comments.length} comments
+                    </p>
+                </div>
+            `
+            header.insertAdjacentHTML('beforeend', headerHtml)
+    
+            function addComment(comment) {
+                var commentHtml = `
+                    <div class="comment">
+                        <div class="top-comment">
+                            <img src = ../images/pfp.png width = "50" height = "50"> </img>
+                            <p class="user">
+                                ${comment.author}
+                            </p>
+                            <p class="comment-ts">
+                                ${new Date(comment.date).toLocaleString()}
+                                <br>
+                                
+                                ${comment.content}
+                            </p>
+                            
+                            
+                        </div>
+                    </div>
+                `
+                comments.insertAdjacentHTML('beforeend', commentHtml);
+            }
+    
+            var comments = document.querySelector('.comments');
+            for (let comment of thread.comments) {
+                addComment(comment);
+            }
+    
+            var btn = document.querySelector('button');
+            btn.addEventListener('click', function() {
+                var txt = document.querySelector('textarea');
+                var comment = {
+                    content: txt.value,
+                    date: Date.now(),
+                    author: 'ArnavN'//placeholder 
+                }
+                addComment(comment);
+                txt.value = '';
+        
+                let index = foo.findIndex( element => {
+                    if (element.name == thread.id) {
+                    return true;
+                    }
+            });
+
+                thread.comments.push(comment);
+                foo[thread.id - 1] = thread;
+                sessionStorage.setItem("newThreads", JSON.stringify(foo));
+            })
+  </script>
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script src ="../javascript/like_button.js" type="text/babel"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.2.0/umd/react.production.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.2.0/umd/react-dom.production.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+        <script
+            src="https://kit.fontawesome.com/00c761c639.js"
+            crossorigin="anonymous"
+            ></script>
+</body>
